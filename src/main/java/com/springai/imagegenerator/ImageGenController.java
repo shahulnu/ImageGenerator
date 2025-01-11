@@ -28,8 +28,10 @@ public class ImageGenController {
     }
 
     @GetMapping("generate-multiple-images")
-    public List<String> generateMultipleImages(HttpServletResponse response, @RequestParam String prompt) throws IOException {
-        ImageResponse imageResponse = imageGenService.generateMultipleImages(prompt);
+    public List<String> generateMultipleImages(HttpServletResponse response, @RequestParam String prompt,
+                @RequestParam(defaultValue = "hd") String quality, @RequestParam(defaultValue = "1") int imageCount,
+                @RequestParam(defaultValue = "1024") int height, @RequestParam(defaultValue = "1024") int width) throws IOException {
+        ImageResponse imageResponse = imageGenService.generateMultipleImages(prompt, quality, imageCount, height, width);
         List<String> imageUrls = imageResponse.getResults().stream()
             .map(result -> result.getOutput().getUrl())
             .toList();

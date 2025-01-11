@@ -27,14 +27,15 @@ public class ImageGenService {
         return imageResponse;
     }
 
-    public ImageResponse generateMultipleImages(String prompt) {
+    public ImageResponse generateMultipleImages(String prompt, String quality, int imageCount, int height, int width) {
         ImageResponse imageResponse = imageModel.call(
             new ImagePrompt(prompt,
             OpenAiImageOptions.builder()
                 .withModel("dall-e-2")
-                .withN(3)
-                .withHeight(1024)
-                .withWidth(1024).build())
+                .withQuality(quality)
+                .withN(imageCount)
+                .withHeight(height)
+                .withWidth(width).build())
         );
 
         return imageResponse;
